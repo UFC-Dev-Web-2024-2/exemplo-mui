@@ -3,12 +3,24 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals.js";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      color: "rgba(0, 0, 0, 0.9)", // Replace with your custom color
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <ThemeProvider theme={theme}>
+      <CssBaseline />
     <App />
-  </React.StrictMode>
+  </ThemeProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
