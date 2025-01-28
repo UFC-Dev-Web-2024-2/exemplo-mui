@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Item from "@mui/material/ListItem";
 import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import SearchIcon from "@mui/icons-material/Search";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  CardMedia,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -37,287 +37,253 @@ const modalStyle = {
   minWidth: "fit-content",
 };
 
-const fetchMunicipios = async () => {
-  const response = await fetch(
-    "https://servicodados.ibge.gov.br/api/v1/localidades/estados/ce/municipios?orderBy=nome"
-  );
-
-  if (!response.ok) {
-    throw new Error("Erro ao buscar municipios");
-  }
-
-  const data = await response.json();
-
-  return data;
-};
-
 const App = () => {
-  const [municipios, setMunicipios] = useState([]);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    fetchMunicipios().then((data) => setMunicipios(data));
-  }, []);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const cardData = [
+    {
+      image: "/img-1.jpeg",
+      title: "SIM do Município",
+      description:
+        "Acesse os dados enviados pelos os municípios através do SIM.",
+      onClick: () => console.log("Acessar SIM do Município"),
+    },
+    {
+      image: "/img-2.jpeg",
+      title: "TCE",
+      description:
+        "Acesse as informações sobre o tribunal de contas de um município escolhido.",
+      onClick: () => console.log("Acessar SIM do Município"),
+    },
+    {
+      image: "/img-3.jpeg",
+      title: "Fornecedores",
+      description:
+        "Acesse as informações de fornecedores de um município escolhido.",
+      onClick: handleOpen,
+    },
+  ];
+
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: "#E8E8E8", minHeight: "100vh" }}>
-      <AppBar position="static" sx={{ px: "1.5rem" }} elevation={0}>
-        <Toolbar>
-          <Typography
-            variant="h6"
-            color="white"
-            sx={{ flexGrow: 1, fontSize: "1.2rem", textTransform: "uppercase" }}
-          >
-            Portal Da transparência dos municípios
-          </Typography>
-
+    <Box sx={{ flexGrow: 1, bgcolor: "white", minHeight: "100vh" }}>
+      {/* Navbar */}
+      <AppBar position="static" sx={{ px: "2rem", py: "0.7rem" }} elevation={0}>
+        <Container maxWidth="lg">
           <img src="/tce_logo.png" alt="Logo TCE" width={180} height="auto" />
-        </Toolbar>
+        </Container>
       </AppBar>
-      <Container maxWidth="100%" sx={{ mt: 3 }}>
-        <Stack spacing={1} sx={{ minWidth: "100%" }}>
-          <Item>
-            <Card
-              sx={{
-                flexDirection: "row",
-                display: "flex",
-                flexGrow: 1,
-                alignItems: "center",
-                justifyContent: "space-between",
-                px: "1rem",
-              }}
-              elevation={0}
-            >
-              <CardContent sx={{ maxWidth: "70%" }}>
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  component="div"
-                  sx={{ fontSize: "1.2rem", fontWeight: "bold" }}
-                >
-                  Portal TCE
-                </Typography>
-                <Typography>
-                  No Portal da Transparência, o cidadão tem acesso à execução
-                  orçamentária e financeira do Tribunal de Contas do Estado do
-                  Ceará (TCE-CE).
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "0.9rem",
-                    mt: "0.5rem",
-                    color: "text.secondary",
-                  }}
-                >
-                  Acesse a nossa página principal para ter acesso a muito mais
-                  informações
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button
-                  size="medium"
-                  variant="contained"
-                  color="primary"
-                  sx={{ textTransform: "uppercase", width: "13rem" }}
-                >
-                  Ir para o portal
-                </Button>
-              </CardActions>
-            </Card>
-          </Item>
 
-          <Item>
-            <Card
-              sx={{
-                flexGrow: 1,
-                px: "1rem",
+      <div style={{ minWidth: "100%", paddingBottom: "4rem" }}>
+        {/* Banner section */}
+        <Box
+          sx={{
+            backgroundImage:
+              "url(https://s3-alpha-sig.figma.com/img/7d69/c6a8/518695991fa4a446e3339916ee59c0e0?Expires=1739145600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=eluU5n6j7pE7poqclkLmP4r~Gpol9AdMIEETzyx~UitSGExDhb6fynlIVL4cBPLU4VJFCuj5HB0BF6Fu~lAcWFS7NQc2-4DSCYUh347moKAXz5O3WS0DeOBFICmNMW6p0aGmwjdIyDlEp8STURi9lGjmUaPc-1BnDr-k2Ga-NiZnGIGwKgaN8~dh6tE0ISrlYKFI7mpdhipwOIyUGelIA19GgwCcYb4FIrHsDCeUfL6OzDgVJ39gX3x~Ox-u6Db5O3TMlWSbhjXD9PiD8d9IuyCu~j03-MuEmfXcRYqIW4~d-sIa~zAZRCCDfMPcSgFtBbu4VVv72mVmkN1xj93rwQ__)",
+            backgroundSize: "cover",
+            backgroundPosition: "50% 75%",
+            height: "280px",
+            minWidth: "100%",
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              minHeight: "100%",
+              bgcolor: "rgba(0, 0, 40, 0.5)",
+              position: "relative",
+              px: "12%",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                transform: "translateY(-50%)",
               }}
-              elevation={0}
             >
-              <CardContent sx={{ maxWidth: "70%" }}>
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  component="div"
-                  sx={{ fontSize: "1.2rem", fontWeight: "bold" }}
-                >
-                  Município
-                </Typography>
-                <Typography>
-                  Aqui você poderá encontrar informações sobre{" "}
-                  <b>
-                    Receitas, Depesas, Agentes Públicos, Licitações e muito
-                    mais.
-                  </b>
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "0.9rem",
-                    mt: "0.5rem",
-                    color: "text.secondary",
-                  }}
-                >
-                  Estes dados são enviados pelos municípios através do Sistema
-                  de Informações Municipais -{" "}
-                  <Typography
-                    component="span"
-                    color="primary"
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    SIM
-                  </Typography>
-                </Typography>
-              </CardContent>
-              <CardActions
+              <Typography
+                component="h2"
+                sx={{ color: "white", fontWeight: "500", fontSize: "28px" }}
+              >
+                Portal de Transparência dos Municípios
+              </Typography>
+              <Typography
+                component="h3"
+                color="lightGray"
                 sx={{
-                  justifyContent: "space-between",
-                  pl: "1rem",
-                  pb: "1rem",
-                  alignItems: "center",
+                  fontWeight: "400",
+                  fontSize: "18px",
+                  maxWidth: "33rem",
                 }}
               >
-                <Autocomplete
-                  disablePortal
-                  options={(municipios || []).map((option) => option.nome)}
-                  sx={{ width: 300 }}
-                  renderInput={(params) => (
-                    <TextField {...params} label="Selecione um município" />
-                  )}
-                />
-                <Button
-                  size="medium"
-                  variant="contained"
-                  color="primary"
-                  sx={{ textTransform: "uppercase", width: "13rem" }}
-                >
-                  Buscar informações
-                </Button>
-              </CardActions>
-            </Card>
-          </Item>
-
-          <Item>
-            <Card
-              sx={{
-                flexDirection: "row",
-                display: "flex",
-                flexGrow: 1,
-                alignItems: "center",
-                justifyContent: "space-between",
-                px: "1rem",
-              }}
-              elevation={0}
-            >
-              <CardContent sx={{ maxWidth: "70%" }}>
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  component="div"
-                  sx={{ fontSize: "1.2rem", fontWeight: "bold" }}
-                >
-                  Fornecedores
-                </Typography>
-                <Typography>
-                  Fornecedores são pessoas físicas ou jurídicas que fornecem{" "}
-                  <b>bens</b>, <b>serviços</b> ou <b>obras</b> para os
-                  municípios do Ceará.
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "0.9rem",
-                    mt: "0.5rem",
-                    color: "text.secondary",
-                  }}
-                >
-                  Acesse a área de pesquisa de fornecedores para ter acesso as
-                  informações completas
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button
-                  size="medium"
-                  variant="contained"
-                  color="primary"
-                  sx={{ textTransform: "uppercase", width: "13rem" }}
-                  onClick={handleOpen}
-                >
-                  Buscar fornecedor
-                </Button>
-              </CardActions>
-            </Card>
-          </Item>
-        </Stack>
-      </Container>
-      <Box
-        component={"footer"}
-        sx={{
-          position: "absolute",
-          bottom: 0,
-          bgcolor: "white",
-          minWidth: "100%",
-          p: "2rem 4rem",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Box maxWidth={"50%"}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            sx={{ fontSize: "1.2rem", fontWeight: "bold" }}
-          >
-            De onde vem nossos dados?
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "0.9rem",
-              mt: "0.5rem",
-              color: "text.secondary",
-            }}
-          >
-            Nossos dados são enviados pelo próprio município através do Sistema
-            de Informações Municipais -{" "}
-            <Typography
-              component={"span"}
-              color="primary"
-              sx={{ fontWeight: "bold" }}
-            >
-              SIM
-            </Typography>
-          </Typography>
+                Acesse informações relacionadas ao portal de transparência dos
+                municípios.
+              </Typography>
+            </div>
+          </Box>
         </Box>
 
-        <Box sx={{ flexGrow: 1, maxWidth: "30%" }}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            sx={{ fontSize: "1.2rem", fontWeight: "bold" }}
-          >
-            Não achou o que procura?
-          </Typography>
-          <Typography
+        {/* Main area */}
+        <Container
+          maxWidth="lg"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            py: 8,
+            gap: 4,
+          }}
+          component="main"
+        >
+          {/* Card section */}
+          <Box component="section">
+            <Typography sx={{ fontSize: "24px", fontWeight: "600", mb: 2 }}>
+              Escolha uma das opções disponíveis abaixo
+            </Typography>
+            <Box gap={2} sx={{ display: "flex", alignItems: "center" }}>
+              {cardData.map((card, index) => (
+                <Card
+                  sx={{
+                    fill: 1,
+                    boxShadow: 0,
+                    border: "1px solid #CBD5E1",
+                    borderRadius: 2,
+                  }}
+                  key={index}
+                >
+                  <CardMedia
+                    sx={{ height: 100 }}
+                    image={card.image}
+                    title={card.title}
+                  />
+                  <CardContent
+                    sx={{
+                      px: 3,
+                      boxShadow: "0px -10px 40px 40px rgba(255, 255, 255, 1)",
+                    }}
+                  >
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      {card.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
+                      {card.description}
+                    </Typography>
+                  </CardContent>
+                  <CardActions sx={{ px: 3, mb: 2 }}>
+                    <Button
+                      size="medium"
+                      variant="contained"
+                      onClick={card.onClick}
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      Acessar
+                    </Button>
+                  </CardActions>
+                </Card>
+              ))}
+            </Box>
+          </Box>
+
+          {/* Search section */}
+          <Box
+            component="section"
+            border="1px solid lightGray"
             sx={{
-              fontSize: "0.9rem",
-              mt: "0.5rem",
-              color: "text.secondary",
+              width: "100%",
               display: "flex",
               alignItems: "center",
+              justifyContent: "space-between",
+              px: 4,
+              py: 3,
+              borderRadius: 1.5,
             }}
           >
-            <SearchIcon />
-            <span>Então utilize nosso</span>
-            <Button onClick={handleOpen} color="primary" sx={{fontWeight: "bold"}}>
-              SERVIÇO DE BUSCA
+            <Typography color="darkGray">
+              Não encontrou o que desejava nas opções acima? Realize uma busca
+              no nosso serviço de busca.
+            </Typography>
+            <Button
+              size="medium"
+              variant="contained"
+              color="secondary"
+              onClick={handleOpen}
+              sx={{
+                boxShadow: 0,
+                textTransform: "capitalize",
+              }}
+            >
+              Realizar busca
             </Button>
-          </Typography>
-        </Box>
-      </Box>
+          </Box>
 
+          {/* Frequent questions section */}
+          <Box component="section" sx={{ width: "100%" }}>
+            <Box sx={{ textAlign: "center", px: 4, mb: 4 }}>
+              <Typography sx={{ fontSize: "24px", fontWeight: "500" }}>
+                Perguntas frequentes
+              </Typography>
+              <Typography
+                color="darkGray"
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: "400",
+                  mb: 2,
+                }}
+              >
+                Confia abaixo as perguntas frequentes e suas respostas.
+              </Typography>
+            </Box>
+
+            <Accordion
+              defaultExpanded
+              sx={{
+                boxShadow: 0,
+                border: "1px solid #CBD5E1",
+                borderRadius: 2,
+                overflow: "hidden",
+              }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel-content"
+                id="panel-header"
+                sx={{ borderRadius: 2 }}
+              >
+                <Typography
+                  component="span"
+                  sx={{ fontWeight: "500", fontSize: "18px" }}
+                >
+                  De onde vem os dados?
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails
+                color="darkGray"
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: "400",
+                }}
+              >
+                Os dados disponíveis são enviados pelo o município através do
+                Sistema de Informações Municipais - SIM
+              </AccordionDetails>
+            </Accordion>
+          </Box>
+        </Container>
+      </div>
+
+      {/* Search modal */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -333,7 +299,7 @@ const App = () => {
             <Typography id="modal-modal-description" sx={{ mt: 1 }}>
               Você pode realizar a pesquisa utilizando um dos dados abaixo:
             </Typography>
-            <ListItem sx={{ my: 0, py: 0.5 }}>
+            <ListItem sx={{ my: 0, py: 0.3 }}>
               <span
                 style={{
                   minWidth: "fit-content",
@@ -346,7 +312,7 @@ const App = () => {
               </span>{" "}
               - ana maria
             </ListItem>
-            <ListItem sx={{ my: 0, py: 0.5 }}>
+            <ListItem sx={{ my: 0, py: 0.3 }}>
               <span
                 style={{
                   minWidth: "fit-content",
@@ -359,7 +325,7 @@ const App = () => {
               </span>{" "}
               - abc serviços ltda
             </ListItem>
-            <ListItem sx={{ my: 0, py: 0.5 }}>
+            <ListItem sx={{ my: 0, py: 0.3 }}>
               <span
                 style={{
                   minWidth: "fit-content",
@@ -373,7 +339,7 @@ const App = () => {
               - para o CPF 123.456.789-10 use 12345678910 (utilize apenas
               números)
             </ListItem>
-            <ListItem sx={{ my: 0, py: 0.5 }}>
+            <ListItem sx={{ my: 0, py: 0.3 }}>
               <span
                 style={{
                   minWidth: "fit-content",
@@ -388,7 +354,7 @@ const App = () => {
             </ListItem>
           </List>
 
-          <FormControl sx={{ minWidth: "100%", mt: 2 }}>
+          <FormControl sx={{ minWidth: "100%", mt: 1 }}>
             <FormLabel id="demo-radio-buttons-group-label">
               {" "}
               1. Escolha o tipo de consulta:
@@ -422,8 +388,7 @@ const App = () => {
               variant="contained"
               color="primary"
               sx={{
-                textTransform: "uppercase",
-                width: "13rem",
+                textTransform: "capitalize",
                 mt: 2,
                 alignSelf: "end",
               }}

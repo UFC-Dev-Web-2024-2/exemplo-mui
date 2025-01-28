@@ -11,13 +11,30 @@ const theme = createTheme({
       color: "rgba(0, 0, 0, 0.9)", // Replace with your custom color
     },
   },
+  palette: {
+    primary: {
+      main: "#2C417A",
+    },
+    secondary: {
+      main: "#F1F5F9",
+    },
+    darkGray: {
+      main: "#334155",
+    },
+    lightGray: {
+      main: "#CBD5E1",
+    },
+    secondaryForeground: {
+      main: "#0F172A",
+    },
+  },
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
   <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <CssBaseline />
     <App />
   </ThemeProvider>
   // </React.StrictMode>
