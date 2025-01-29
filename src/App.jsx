@@ -1,14 +1,15 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
+import TextField from "@mui/material/TextField";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
+import Grid from "@mui/material/Grid2";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
@@ -24,25 +25,13 @@ import {
   RadioGroup,
 } from "@mui/material";
 
-const modalStyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 1.5,
-  minWidth: "fit-content",
-};
-
 const App = () => {
-  const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
 
+  // Data for the cards
   const cardData = [
     {
       image: "/img-1.jpeg",
@@ -63,20 +52,18 @@ const App = () => {
       title: "Fornecedores",
       description:
         "Acesse as informações de fornecedores de um município escolhido.",
-      onClick: handleOpen,
+      onClick: handleModalOpen,
     },
   ];
 
   return (
     <Box sx={{ flexGrow: 1, bgcolor: "white", minHeight: "100vh" }}>
       {/* Navbar */}
-      <AppBar position="static" sx={{ px: "2rem", py: "0.7rem" }} elevation={0}>
-        <Container maxWidth="lg">
-          <img src="/tce_logo.png" alt="Logo TCE" width={180} height="auto" />
-        </Container>
+      <AppBar position="static" sx={{ px: "10%", py: "0.7rem" }} elevation={0}>
+        <img src="/tce_logo.png" alt="Logo TCE" width={180} height="auto" />
       </AppBar>
 
-      <div style={{ minWidth: "100%", paddingBottom: "4rem" }}>
+      <div style={{ minWidth: "100%", paddingBottom: "2rem" }}>
         {/* Banner section */}
         <Box
           sx={{
@@ -94,7 +81,7 @@ const App = () => {
               minHeight: "100%",
               bgcolor: "rgba(0, 0, 40, 0.5)",
               position: "relative",
-              px: "12%",
+              px: "10%",
             }}
           >
             <div
@@ -127,73 +114,74 @@ const App = () => {
         </Box>
 
         {/* Main area */}
-        <Container
-          maxWidth="lg"
+        <Stack
           sx={{
-            display: "flex",
-            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             py: 8,
+            px: "10%",
             gap: 4,
+            minWidth: "100%",
           }}
           component="main"
         >
           {/* Card section */}
-          <Box component="section">
+          <Box component="section" sx={{ minWidth: "100%" }}>
             <Typography sx={{ fontSize: "24px", fontWeight: "600", mb: 2 }}>
               Escolha uma das opções disponíveis abaixo
             </Typography>
-            <Box gap={2} sx={{ display: "flex", alignItems: "center" }}>
+            <Grid container spacing={2}>
               {cardData.map((card, index) => (
-                <Card
-                  sx={{
-                    fill: 1,
-                    boxShadow: 0,
-                    border: "1px solid #CBD5E1",
-                    borderRadius: 2,
-                  }}
-                  key={index}
-                >
-                  <CardMedia
-                    sx={{ height: 100 }}
-                    image={card.image}
-                    title={card.title}
-                  />
-                  <CardContent
+                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
+                  <Card
                     sx={{
-                      px: 3,
-                      boxShadow: "0px -10px 40px 40px rgba(255, 255, 255, 1)",
+                      width: "100%",
+                      boxShadow: 0,
+                      border: "1px solid #CBD5E1",
+                      borderRadius: 2,
+                      minHeight: "100%",
                     }}
                   >
-                    <Typography
-                      gutterBottom
-                      variant="h5"
-                      component="div"
-                      sx={{ fontWeight: "bold" }}
+                    <CardMedia
+                      sx={{ height: 100 }}
+                      image={card.image}
+                      title={card.title}
+                    />
+                    <CardContent
+                      sx={{
+                        px: 3,
+                        boxShadow: "0px -10px 40px 40px rgba(255, 255, 255, 1)",
+                      }}
                     >
-                      {card.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: "text.secondary" }}
-                    >
-                      {card.description}
-                    </Typography>
-                  </CardContent>
-                  <CardActions sx={{ px: 3, mb: 2 }}>
-                    <Button
-                      size="medium"
-                      variant="contained"
-                      onClick={card.onClick}
-                      sx={{ textTransform: "capitalize" }}
-                    >
-                      Acessar
-                    </Button>
-                  </CardActions>
-                </Card>
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        sx={{ fontWeight: "bold" }}
+                      >
+                        {card.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary" }}
+                      >
+                        {card.description}
+                      </Typography>
+                    </CardContent>
+                    <CardActions sx={{ px: 3, mb: 2 }}>
+                      <Button
+                        size="medium"
+                        variant="contained"
+                        onClick={card.onClick}
+                        sx={{ textTransform: "capitalize" }}
+                      >
+                        Acessar
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
               ))}
-            </Box>
+            </Grid>
           </Box>
 
           {/* Search section */}
@@ -207,7 +195,10 @@ const App = () => {
               justifyContent: "space-between",
               px: 4,
               py: 3,
+              mb: 2,
               borderRadius: 1.5,
+              flexWrap: "wrap",
+              gap: 2,
             }}
           >
             <Typography color="darkGray">
@@ -218,7 +209,7 @@ const App = () => {
               size="medium"
               variant="contained"
               color="secondary"
-              onClick={handleOpen}
+              onClick={handleModalOpen}
               sx={{
                 boxShadow: 0,
                 textTransform: "capitalize",
@@ -242,7 +233,7 @@ const App = () => {
                   mb: 2,
                 }}
               >
-                Confia abaixo as perguntas frequentes e suas respostas.
+                Confira abaixo as perguntas frequentes e suas respostas.
               </Typography>
             </Box>
 
@@ -280,17 +271,30 @@ const App = () => {
               </AccordionDetails>
             </Accordion>
           </Box>
-        </Container>
+        </Stack>
       </div>
 
       {/* Search modal */}
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={modalOpen}
+        onClose={handleModalClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={modalStyle}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 1.5,
+            minWidth: "fit-content",
+          }}
+        >
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Procurar por fornecedores
           </Typography>
