@@ -34,21 +34,21 @@ const App = () => {
   // Data for the cards
   const cardData = [
     {
-      image: "/img-1.jpeg",
+      image: "/exemplo-mui/img-1.jpeg",
       title: "SIM do Município",
       description:
         "Acesse os dados enviados pelos os municípios através do SIM.",
       onClick: () => console.log("Acessar SIM do Município"),
     },
     {
-      image: "/img-2.jpeg",
+      image: "/exemplo-mui/img-2.jpeg",
       title: "TCE",
       description:
         "Acesse as informações sobre o tribunal de contas de um município escolhido.",
       onClick: () => console.log("Acessar SIM do Município"),
     },
     {
-      image: "/img-3.jpeg",
+      image: "/exemplo-mui/img-3.jpeg",
       title: "Fornecedores",
       description:
         "Acesse as informações de fornecedores de um município escolhido.",
@@ -60,7 +60,7 @@ const App = () => {
     <Box sx={{ flexGrow: 1, bgcolor: "white", minHeight: "100vh" }}>
       {/* Navbar */}
       <AppBar position="static" sx={{ px: "10%", py: "0.7rem" }} elevation={0}>
-        <img src="/tce_logo.png" alt="Logo TCE" width={180} height="auto" />
+        <img src="/exemplo-mui/tce_logo.png" alt="Logo TCE" width={180} height="auto" />
       </AppBar>
 
       <div style={{ minWidth: "100%", paddingBottom: "2rem" }}>
