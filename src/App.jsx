@@ -68,7 +68,7 @@ const App = () => {
         <Box
           sx={{
             backgroundImage:
-              "url(https://s3-alpha-sig.figma.com/img/7d69/c6a8/518695991fa4a446e3339916ee59c0e0?Expires=1739145600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=eluU5n6j7pE7poqclkLmP4r~Gpol9AdMIEETzyx~UitSGExDhb6fynlIVL4cBPLU4VJFCuj5HB0BF6Fu~lAcWFS7NQc2-4DSCYUh347moKAXz5O3WS0DeOBFICmNMW6p0aGmwjdIyDlEp8STURi9lGjmUaPc-1BnDr-k2Ga-NiZnGIGwKgaN8~dh6tE0ISrlYKFI7mpdhipwOIyUGelIA19GgwCcYb4FIrHsDCeUfL6OzDgVJ39gX3x~Ox-u6Db5O3TMlWSbhjXD9PiD8d9IuyCu~j03-MuEmfXcRYqIW4~d-sIa~zAZRCCDfMPcSgFtBbu4VVv72mVmkN1xj93rwQ__)",
+              "url(/exemplo-mui/banner.jpg)",
             backgroundSize: "cover",
             backgroundPosition: "50% 75%",
             height: "280px",

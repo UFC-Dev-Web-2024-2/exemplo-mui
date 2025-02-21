@@ -1,7 +1,6 @@
 {
   "name": "exemplo-mui",
   "version": "0.1.0",
-  "homepage": "https://ufc-dev-web-2024-2.github.io/exemplo-mui/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -17,9 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -40,7 +37,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0",
     "web-vitals": "^4.2.4"
   }
 }
